@@ -1,7 +1,22 @@
-# For more information about build system see
-# https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html
-# The following five lines of boilerplate have to be in your project's
-# CMakeLists in this exact order for cmake to work correctly
+# This file is part of ARGUS Ground Station
+# <https://github.com/nikolaptr/argus>.
+#
+# ARGUS Ground Station is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# ARGUS Ground Station is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ARGUS Ground Station. If not, see <http://www.gnu.org/licenses/>.
+#
+# Copyright (C) 2025 Nikola Petrovic
+# Contact: <nikolaptr6@gmail.com>
+
 cmake_minimum_required(VERSION 3.5)
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
