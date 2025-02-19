@@ -1,32 +1,18 @@
-# _Sample project_
+# ARGUS Ground Station
 
-(See the README.md file in the upper level 'examples' directory for more information about examples.)
+An open source ESP-IDF based ground station.
 
-This is the simplest buildable example. The example is used by command `idf.py create-project`
-that copies the project to user specified path and set it's name. For more information follow the [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project)
+## Building it yourself
 
+Please follow the steps:
 
+1. Configure [ESP-IDF Extension for VS Code](https://github.com/espressif/vscode-esp-idf-extension/blob/master/README.md).
 
-## How to use example
-We encourage the users to use the example as a template for the new projects.
-A recommended way is to follow the instructions on a [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project).
+2. Clone the ARGUS Ground Station and open project using VS Code.
 
-## Example folder contents
+3. Bring up VS Code command pallete (`Ctrl + Shift + P`) and run `ESP-IDF: Add vscode configuration folder`.
 
-The project **sample_project** contains one source file in C language [main.c](main/main.c). The file is located in folder [main](main).
+> NOTE: This step is needed to initialize `c_cpp_properties.json` used by C/C++ extension.
 
-ESP-IDF projects are built using CMake. The project build configuration is contained in `CMakeLists.txt`
-files that provide set of directives and instructions describing the project's source files and targets
-(executable, library, or both). 
-
-Below is short explanation of remaining files in the project folder.
-
-```
-├── CMakeLists.txt
-├── main
-│   ├── CMakeLists.txt
-│   └── main.c
-└── README.md                  This is the file you are currently reading
-```
-Additionally, the sample project contains Makefile and component.mk files, used for the legacy Make based build system. 
-They are not used or needed when building with CMake and idf.py.
+4. Refer to [Using the ESP-IDF Extension for VS Code](https://github.com/espressif/vscode-esp-idf-extension/blob/master/README.md#using-the-esp-idf-extension-for-vs-code)
+to learn how to use ESP-IDF extension.
