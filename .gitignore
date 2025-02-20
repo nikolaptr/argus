@@ -3,3 +3,8 @@
 build/
 sdkconfig
 sdkconfig.old
+
+# Python Virtual Environment
+.venv/
+venv/
+python_venv/
