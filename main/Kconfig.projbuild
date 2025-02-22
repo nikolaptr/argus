@@ -1,0 +1,41 @@
+menu "ARGUS Configuration"
+
+    menu "Telemetry Configuration"
+        config ARGUS_TELEMETRY_UART_PORT_NUM
+            int "UART port number"
+            default 1
+            help
+                UART communication port number for the Telemetry. See UART
+                documentation for available port numbers.
+
+        config ARGUS_TELEMETRY_UART_BAUD_RATE
+            int "UART communication speed"
+            range 1200 921600
+            default 115200
+            help
+                UART communication speed for Telemetry.
+
+        config ARGUS_TELEMETRY_UART_RXD
+            int "UART RXD pin number"
+            default 18
+            help
+                GPIO number for UART RX pin. See UART documentation for more
+                information about available pin numbers for UART.
+
+        config ARGUS_TELEMETRY_UART_TXD
+            int "UART TXD pin number"
+            default 17
+            help
+                GPIO number for UART TX pin. See UART documentation for more
+                information about available pin numbers for UART.
+
+        config ARGUS_TELEMETRY_TASK_STACK_SIZE
+            int "Telemetry task stack size"
+            range 4196 16384
+            default 8192
+            help
+                Defines stack size for Telemetry Task. Insufficient stack size
+                can cause crash.
+    endmenu
+
+endmenu
