@@ -25,12 +25,18 @@
 #include "freertos/task.h"
 #include <stdio.h>
 
+#include "gcs_bridge.h"
 #include "telemetry_bridge.h"
 
 /* telemetry receive UART buffer size */
 #define ARGUS_TELEMETRY_RX_BUF_SIZE 512
 /* telemetry transmit UART buffer size */
 #define ARGUS_TELEMETRY_TX_BUF_SIZE 512
+
+/* GCS receive UART buffer size */
+#define ARGUS_GCS_RX_BUF_SIZE 512
+/* GCS transmit UART buffer size */
+#define ARGUS_GCS_TX_BUF_SIZE 512
 
 void app_main(void)
 {
@@ -59,7 +65,28 @@ void app_main(void)
                                  CONFIG_ARGUS_TELEMETRY_UART_RXD,
                                  UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE));
 
+    /* GCS UART */
+    uart_config.baud_rate = CONFIG_ARGUS_GCS_UART_BAUD_RATE;
+    uart_config.data_bits = UART_DATA_8_BITS;
+    uart_config.parity = UART_PARITY_DISABLE;
+    uart_config.stop_bits = UART_STOP_BITS_1;
+    uart_config.flow_ctrl = UART_HW_FLOWCTRL_DISABLE;
+    uart_config.source_clk = UART_SCLK_DEFAULT;
+
+    ESP_ERROR_CHECK(uart_driver_install(
+        CONFIG_ARGUS_GCS_UART_PORT_NUM, ARGUS_GCS_RX_BUF_SIZE,
+        ARGUS_GCS_TX_BUF_SIZE, 0, NULL, intr_alloc_flags));
+    ESP_ERROR_CHECK(
+        uart_param_config(CONFIG_ARGUS_GCS_UART_PORT_NUM, &uart_config));
+    ESP_ERROR_CHECK(uart_set_pin(
+        CONFIG_ARGUS_GCS_UART_PORT_NUM, CONFIG_ARGUS_GCS_UART_TXD,
+        CONFIG_ARGUS_GCS_UART_RXD, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE));
+
     /* parse incoming telemetry MAVLink packets */
     xTaskCreate(telemetry_bridge, "telemetry_bridge",
                 CONFIG_ARGUS_TELEMETRY_TASK_STACK_SIZE, NULL, 1, NULL);
+
+    /* parse incoming GCS MAVLink packets */
+    xTaskCreate(gcs_bridge, "gcs_bridge", CONFIG_ARGUS_GCS_TASK_STACK_SIZE,
+                NULL, 1, NULL);
 }
