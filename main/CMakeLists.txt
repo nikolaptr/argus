@@ -20,6 +20,7 @@
 idf_component_register(
 SRCS
     "main.c"
+    "gcs_bridge.c"
     "telemetry_bridge.c"
 INCLUDE_DIRS
     "."
