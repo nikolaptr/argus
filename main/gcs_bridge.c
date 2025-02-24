@@ -28,9 +28,9 @@
 
 void gcs_bridge(void *arg)
 {
-    mavlink_message_t mav_msg;       // MAVLink message.
-    uint8_t uart_rx[32];             // UART receive buffer.
-    char *tag = pcTaskGetName(NULL); // task name, used as tag.
+    mavlink_message_t mav_msg;               // MAVLink message.
+    uint8_t mav_buf[MAVLINK_MAX_PACKET_LEN]; // MAVLink serialization buffer.
+    uint8_t uart_rx[32];                     // UART receive buffer.
 
     for (;;) {
         /* read data from UART */
@@ -51,8 +51,11 @@ void gcs_bridge(void *arg)
             if (status != 1)
                 continue;
 
-            /* send message id to terminal */
-            ESP_LOGI(tag, "Received Message ID = %d", mav_msg.msgid);
+            /* pass message to telemetry */
+            uint16_t size = mavlink_msg_to_send_buffer(mav_buf, &mav_msg);
+
+            uart_write_bytes(CONFIG_ARGUS_TELEMETRY_UART_PORT_NUM, mav_buf,
+                             size);
         }
     }
 }
